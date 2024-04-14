@@ -1,5 +1,6 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Link from 'next/link';
 
 export default function Page() {
   // Define a function to determine the CSS class based on the shift type
@@ -45,9 +46,9 @@ export default function Page() {
       <nav className="navbar navbar-light bg-success">
         <div className="container-fluid">
           <span className="navbar-brand mb-0 h1 text-light">S.O.R.T.</span>
-          <button type="button" className="btn btn-outline-light">
-            Log out
-          </button>
+          <Link href="/login">
+            <button type="button" className="btn btn-outline-light">Log out</button>
+          </Link>
         </div>
       </nav>
       <div className="container mt-4">
