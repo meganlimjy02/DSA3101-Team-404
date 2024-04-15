@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@canvasjs/react-charts": "^1.0.2",
+    "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "next": "14.2.0",
     "react": "^18",
