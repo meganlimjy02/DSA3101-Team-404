@@ -3,8 +3,13 @@ import Link from 'next/link';
 import styles from "./page.module.css";
 import Image from 'next/image';
 import { useState } from 'react';
+import Overview from './overview';
 
 export default function Page() {
+
+  const [isFreeShifts, setIsFreeShifts] = useState(new Array(14).fill(false))
+  const [isSelectAll, setIsSelectAll] = useState(false)
+
   const name = "John"
   const daysOfWeek = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
   const dayHtml = []
@@ -54,17 +59,22 @@ export default function Page() {
   }
   curTable.push(<div className='row row-cols-7'>{halfTable2}</div>)
 
-  const [checker, setChecker] = useState(new Array(14).fill(false))
-
   const handleCheckbox = (i: number) => {
-    const newArr = [...checker]
-    newArr[i] = !newArr[i]
-    setChecker(newArr)
+    const updatedFreeShifts = [...isFreeShifts]
+    updatedFreeShifts[i] = !updatedFreeShifts[i]
+
+    let isAllSelected = true
+    updatedFreeShifts.forEach(updatedFreeShift => {
+      isAllSelected = isAllSelected && updatedFreeShift
+    })
+    setIsSelectAll(isAllSelected)
+
+    setIsFreeShifts(updatedFreeShifts)
   }
 
   const checkBug = []
   for (let i=0; i<14; i++) {
-    if (checker[i]) {
+    if (isFreeShifts[i]) {
       checkBug.push(<div>1</div>)
     } else {
       checkBug.push(<div>0</div>)
@@ -73,19 +83,25 @@ export default function Page() {
 
   const checkrow1 = []
   for (let i=0; i<14; i+=2) {
-    checkrow1.push(<input type="checkbox" className="btn-check" id={"btncheck" + i} checked={checker[i]} onClick={() => handleCheckbox(i)} autoComplete="off"/>)
+    checkrow1.push(<input type="checkbox" className="btn-check" id={"btncheck" + i} checked={isFreeShifts[i]} onClick={() => handleCheckbox(i)} autoComplete="off"/>)
     checkrow1.push(<label className={`col btn btn-outline-warning ${styles.squarebutton}`} htmlFor={"btncheck" + i}></label>)
   }
 
   const checkrow2 = []
   for (let i=1; i<14; i+=2) {
-    checkrow2.push(<input type="checkbox" className="btn-check" id={"btncheck" + i} checked={checker[i]} onClick={() => handleCheckbox(i)} autoComplete="off"/>)
+    checkrow2.push(<input type="checkbox" className="btn-check" id={"btncheck" + i} checked={isFreeShifts[i]} onClick={() => handleCheckbox(i)} autoComplete="off"/>)
     checkrow2.push(<label className={`col btn btn-outline-primary ${styles.squarebutton}`} htmlFor={"btncheck" + i}></label>)
+  }
+
+  const toggleSelectAll = () => {
+    const state = isSelectAll
+    setIsFreeShifts(new Array(14).fill(!state))
+    setIsSelectAll(!state)
   }
 
 
   return <>
-  <div className="d-flex flex-column overflow-hidden" style={{backgroundColor: "#fefbf6"}}>
+  <div className="d-flex flex-column overflow-hidden" style={{backgroundColor: "#fefbf6", height: "100vh"}}>
     <nav className="navbar navbar-light" style={{backgroundColor: "#479f76"}}>
       <div className="container-fluid">
         <span className="navbar-brand mb-0 h1 text-light">S.O.R.T.</span>
@@ -102,7 +118,7 @@ export default function Page() {
     <div className='d-flex'>
 
       <div className={styles.timetablesss}>
-        <div className={`card ${styles.timetable}`} style={{backgroundColor: "#f0f0f0"}}>
+        <div className={`card ${styles.timetable}`}>
           <div className={` ${styles.griddy}`}>
             <h4 className={styles.header}>This week</h4>
             <div className={styles.dates}>
@@ -138,7 +154,15 @@ export default function Page() {
 
         <div className={`card ${styles.timetable}`}>
           <div className={` ${styles.griddy}`}>
-            <h4 className={`text-muted ${styles.header}`}>Next week</h4>
+            <div className={styles.header}>
+              <h4 className="text-muted">Next week</h4>
+              <div className="form-check">
+                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked={isSelectAll} onChange={() => toggleSelectAll()} />
+                <label className="form-check-label" htmlFor="flexCheckDefault">
+                  Select All
+                </label>
+              </div>
+            </div>
             <div className={styles.dates}>
               <div className='d-flex'>{dateHtmlNext}</div>
             </div>
@@ -173,11 +197,10 @@ export default function Page() {
         </div>
       </div>
 
-      <div className={styles.chartsss}>
-        <div className={`card ${styles.chart}`}>
-          helo {checker[1] ? "it is set to true!" : "no u"}
-          {checkBug}
-        </div>
+      <div className={styles.charts}>
+        {/* helo {isSelectAll ? "it is set to true!" : "no u"} */}
+        {/* {checkBug} */}
+        <Overview />
       </div>
 
     </div>
