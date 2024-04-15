@@ -11,6 +11,8 @@ export class UserAPIs {
       password: password
     })
 
+    return response
+
     // const response = await axios.post(BASE_URL + "/staff", {
     //   staff_id: "abc123",
     //   password: "newpassword"
@@ -20,14 +22,21 @@ export class UserAPIs {
     //   }
     // })
 
-    if (response.status == 200) {
-      sessionStorage.setItem("storedUsername", username)
-      // response.data.role
-      // redirect /staff or /management
-    } else {
-      // pop up (wrong LOGIN)
-    }
-    
-    console.log(response)
+    //console.log('hello')
+
+    // return axios.post(BASE_URL + "/login", {
+    //   username,
+    //   password
+    // })
+    // .then((response) => response)
+    // .catch((err) => console.log(err))
   }
+  //   if (response.status == 200) {
+  //     sessionStorage.setItem("storedUsername", username)
+  //     // response.data.role
+  //     // redirect /staff or /management
+  //   } else {
+  //     // pop up (wrong LOGIN)
+  //   }
+  // }
 }
