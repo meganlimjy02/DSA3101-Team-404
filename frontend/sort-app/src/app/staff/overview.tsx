@@ -2,10 +2,10 @@
 import CanvasJSReact from '@canvasjs/react-charts';
 import styles from './overview.module.css'
 
-export default function Overview() {
+export default function Overview({curSched} : any) {
 
   const CanvasJSChart = CanvasJSReact.CanvasJSChart;
-  const shiftsRequired = 9
+  const shiftsRequired = 14 - curSched.length
   const shiftsCompleted = 14
 
   const shiftsCompletedOptions = {
@@ -62,7 +62,7 @@ export default function Overview() {
   return <>
     <div className={`card ${styles.chartCard }`}>
       <div className={`${styles.cardLabel}`}>
-        <span>Completed Shifts</span>
+        <span>Shifts Completed</span>
         <span>This Week</span>
       </div>
       <CanvasJSChart options={shiftsCompletedOptions} />
