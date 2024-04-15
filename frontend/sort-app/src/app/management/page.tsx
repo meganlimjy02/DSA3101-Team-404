@@ -46,11 +46,15 @@ export default function Page() {
       <nav className="navbar navbar-light bg-success">
         <div className="container-fluid">
           <span className="navbar-brand mb-0 h1 text-light">S.O.R.T.</span>
+          <Link href="/management/accountcreation">
+            <button type="button" className="btn btn-outline-light">Create Account</button>
+          </Link>
           <Link href="/login">
             <button type="button" className="btn btn-outline-light">Log out</button>
           </Link>
         </div>
       </nav>
+
       <div className="container mt-4">
         <table className="table">
           <thead>
