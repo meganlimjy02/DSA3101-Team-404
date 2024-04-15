@@ -1,0 +1,10 @@
+.squarebutton {
+  border-radius: 0px;
+  border: 2px solid rgb(82, 82, 82);
+  padding: 1px;
+}
+
+.submitbutton {
+  /* background-color: #479f76; */
+  justify-items: right;
+}
