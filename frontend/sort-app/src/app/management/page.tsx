@@ -1,5 +1,5 @@
-import React from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Link from 'next/link';
+import styles from "./page.module.css";
 
 export default function Page() {
   const employees = {
