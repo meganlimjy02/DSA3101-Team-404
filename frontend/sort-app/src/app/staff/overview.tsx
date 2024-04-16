@@ -2,11 +2,24 @@
 import CanvasJSReact from '@canvasjs/react-charts';
 import styles from './overview.module.css'
 
-export default function Overview({curSched} : any) {
+export default function Overview({curSchedBusy} : any) {
+  const currentDate = new Date()
+  const currentDay = ((currentDate.getDay()==0) ? 7 : currentDate.getDay())
+  const curSchedAvail = []
+  for (let i=0; i<14; i++) {
+    if (!curSchedBusy.includes(i)) {
+      curSchedAvail.push(i)
+    }
+  }
+  let cumShifts = 0
+  for (let i=0; i<curSchedAvail.length; i++) {
+    if (curSchedAvail[i]+1>currentDay*2) {break}
+    cumShifts += 1
+  }
 
   const CanvasJSChart = CanvasJSReact.CanvasJSChart;
-  const shiftsRequired = 14 - curSched.length
-  const shiftsCompleted = 14
+  const shiftsRequired = curSchedAvail.length
+  const shiftsCompleted = cumShifts
 
   const shiftsCompletedOptions = {
     title: {

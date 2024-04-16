@@ -5,6 +5,9 @@
 }
 
 .submitbutton {
+  display: flex;
   /* background-color: #479f76; */
-  justify-items: right;
+  justify-content: right;
+  padding-right: 5pxx;
+  padding-top: 10px;
 }

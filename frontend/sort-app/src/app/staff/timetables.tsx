@@ -2,11 +2,11 @@ import styles from "./timetables.module.css";
 import Image from 'next/image';
 import Editable from './editable';
 
-export default function Timetables({curSched, dateHtmlCur, dateHtmlNext, dayHtml} : any) {
+export default function Timetables({curSchedBusy, dateHtmlCur, dateHtmlNext, dayHtml} : any) {
 
   const halfTable1 = []
   for (let i=0; i<14; i+=2) { // day shifts (1st row)
-    if (!curSched.includes(i)) {
+    if (!curSchedBusy.includes(i)) {
       halfTable1.push(
         <div className={`col ${styles.dayCell} ${styles.cell}`}>
           O
@@ -23,7 +23,7 @@ export default function Timetables({curSched, dateHtmlCur, dateHtmlNext, dayHtml
   
   const halfTable2 = []
   for (let i=1; i<14; i+=2) { // night shifts (2nd row)
-    if (!curSched.includes(i)) {
+    if (!curSchedBusy.includes(i)) {
       halfTable2.push(
         <div className={`col ${styles.nightCell} ${styles.cell}`}>
           O

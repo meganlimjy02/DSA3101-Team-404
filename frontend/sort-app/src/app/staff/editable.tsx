@@ -2,6 +2,7 @@ import styles from "./timetables.module.css";
 import stylesC from "./editable.module.css";
 import Image from 'next/image';
 import { JSX, useState } from 'react';
+import { TimetableAPIs } from "../apis/timetableAPI";
 
 export default function Editable({dateHtmlNext, dayHtml}: any) {
 
@@ -31,6 +32,10 @@ export default function Editable({dateHtmlNext, dayHtml}: any) {
   const toggleSubmit = () => {
     const state = isSubmitted
     setIsSubmitted(!state)
+    // TimetableAPIs.putAvailability("F1", "Thursday1")
+    // TimetableAPIs.putAvailability("F1", "Monday1")
+    // TimetableAPIs.putAvailability("F1", "Friday2")
+    // TimetableAPIs.getAvailability()
   }
 
   const checkBug = []
@@ -95,7 +100,7 @@ export default function Editable({dateHtmlNext, dayHtml}: any) {
 
 
   return <>
-    <div className={`card ${styles.timetable}`}>
+    <div className={`card ${styles.timetable}`} style={{backgroundColor: (isSubmitted ? "#e6e6e6":"#FFFFFF")}}>
       <div className={` ${styles.griddy}`}>
         <div className={styles.header}>
           <h4 className="text-muted">Next week</h4>
@@ -135,9 +140,9 @@ export default function Editable({dateHtmlNext, dayHtml}: any) {
         </div>
       </div>
       
-      <div style={{width: "100%", justifyItems:"center"}}>
+      <div className={stylesC.submitbutton} style={{width: "100%"}}>
         <input type="checkbox" className="btn-check" id="submitbtn" checked={isSubmitted} onClick={() => toggleSubmit()}autoComplete="off" />
-        <label className={`btn btn-outline-success ${stylesC.submitbutton}`} htmlFor="submitbtn">Submit</label>
+        <label className={`btn btn-success`} style={{width:"20%", backgroundColor:"#479f76"}} htmlFor="submitbtn">{isSubmitted ? "Submitted":"Submit"}</label>
       </div>
     </div>
   </>
