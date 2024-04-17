@@ -1,0 +1,105 @@
+
+.card {
+    background: #ffffff;
+    border-radius: 10px;
+    color: #333;
+    transition: transform 0.3s ease;
+    border: none; /* Remove border for a cleaner look */
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-body {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between; /* This will push content to the sides */
+    align-items: center; /* This will vertically center the content */
+  }
+  
+  .card-title {
+    color: #007bff;
+    font-weight: bold;
+    margin-bottom: 0; /* Reduces space between title and text */
+  }
+  
+  .btn-danger {
+    background: #ff4757;
+    border: none;
+  }
+  
+  .btn-danger:hover {
+    background: #ff6b81;
+  }
+  
+  /* Reduce the height of the card */
+  .card {
+    height: auto; /* or you can set a specific height */
+  }
+  
+
+/* Light-Themed High-Tech Modal Style */
+.modal-content {
+    background: #ffffff; /* Light background for the modal */
+    color: #333; /* Dark text color for contrast */
+    border-radius: 10px; /* Rounded corners for the modal */
+}
+
+.modal-header, .modal-footer {
+    border-bottom: 1px solid #dee2e6; /* Light grey border for a subtle division */
+    border-top: 1px solid #dee2e6; /* Same for the top border in the footer */
+}
+
+.modal-title {
+    color: #007bff; /* Keep the blue tint for the title for a touch of color */
+}
+
+.btn-close {
+    filter: none; /* Keep the close button default */
+}
+
+/* Styling for form inputs to keep them sleek and modern */
+.form-control {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    color: #495057;
+}
+
+.form-control:focus {
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    color: #495057;
+}
+
+/* Green button for saving changes, bright and vibrant */
+.btn-primary {
+    background-color: #28a745; /* Vibrant green */
+    border-color: #28a745;
+}
+
+.btn-primary:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+/* Customization for radio buttons to make them sleek */
+.btn-outline-primary {
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active {
+    color: #0056b3;
+    background-color: #e2e6ea;
+    border-color: #007bff;
+}
+
+.btn-check:checked + .btn-outline-primary {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
