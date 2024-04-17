@@ -7,7 +7,14 @@ export default function Page() {
   interface EmployeeShifts {
     [employee: string]: string[];
   }
-  
+  // Mon, Tue, ..., Sun : 1, 2, ..., 0
+  const currentDate = new Date()
+  const thisMonDate = ((currentDate.getDate()==0) ? currentDate.getDate()-6 : currentDate.getDate()-currentDate.getDay()+1)
+  let thisMonth = currentDate.getMonth()+1
+  let thisDate = thisMonDate
+  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  const dayOfWeek = days[currentDate.getDay()];
+
   // Sample data representing shifts for employees
   const shiftsData = {
     'Monday1': ['F01', 'F02', 'F03', 'F05', 'F07', 'P01', 'P03', 'P05'],
@@ -75,8 +82,14 @@ export default function Page() {
       </nav>
 
       <div className={styles.welcome}>
-        <h1 className="display-6">Hello, Manager!</h1>
+        <div className="d-flex justify-content-between align-items-center">
+          <h1 className="display-6">Hello, Manager!</h1>
+          <div className="font-weight-bold">
+          <h1 className="display-6">Today: {dayOfWeek} {currentDate.getDate()}/{currentDate.getMonth() + 1}/{currentDate.getFullYear()}</h1>
+        </div>
       </div>
+      </div>
+
 
       <div className="container mt-4">
         <table className="table table-bordered">
