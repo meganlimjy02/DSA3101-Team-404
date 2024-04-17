@@ -63,11 +63,11 @@ export default function Overview({curSchedBusy} : any) {
     data: [{
       type: "line",
       dataPoints: [
-        { x: 1, y: 10, label: "03/09 - 03/10" },
-        { x: 2, y: 12, label: "04/11 - 03/12" },
-        { x: 3, y: 5, label: "04/12 - 03/01" },
-        { x: 4, y: 7, label: "03/09 - 03/10" },
-        { x: 5, y: 8, label: "03/09 - 03/10" }
+        { x: 1, y: 10, label: "11/03 - 17/03" },
+        { x: 2, y: 12, label: "18/03 - 24/03" },
+        { x: 3, y: 5, label: "25/03 - 31/03" },
+        { x: 4, y: 7, label: "01/04 - 07/04" },
+        { x: 5, y: 8, label: "08/04 - 14/04" }
       ]
     }]
   }

@@ -5,10 +5,19 @@ import { JSX, useState } from 'react';
 import { TimetableAPIs } from "../apis/timetableAPI";
 
 export default function Editable({dateHtmlNext, dayHtml}: any) {
+  const shiftList = ['Monday1','Monday2','Tuesday1','Tuesday2','Wednesday1','Wednesday2'
+  ,'Thursday1','Thursday2','Friday1','Friday2','Saturday1','Saturday2','Sunday1','Sunday2']
 
   const [isFreeShifts, setIsFreeShifts] = useState(new Array(14).fill(false))
   const [isSelectAll, setIsSelectAll] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+
+  const transformedShifts: string[] = []
+  for (let i=0; i<14; i++) {
+    if (isFreeShifts[i]) {
+      transformedShifts.push(shiftList[i])
+    }
+  }
 
   const handleCheckbox = (i: number) => {
     const updatedFreeShifts = [...isFreeShifts]
@@ -32,10 +41,8 @@ export default function Editable({dateHtmlNext, dayHtml}: any) {
   const toggleSubmit = () => {
     const state = isSubmitted
     setIsSubmitted(!state)
-    // TimetableAPIs.putAvailability("F1", "Thursday1")
-    // TimetableAPIs.putAvailability("F1", "Monday1")
-    // TimetableAPIs.putAvailability("F1", "Friday2")
-    // TimetableAPIs.getAvailability()
+    // TimetableAPIs.postTimetable("2024-04-15")
+    TimetableAPIs.putAvailability(sessionStorage.getItem("storedUser")!, transformedShifts)
   }
 
   const checkBug = []
@@ -141,7 +148,7 @@ export default function Editable({dateHtmlNext, dayHtml}: any) {
       </div>
       
       <div className={stylesC.submitbutton} style={{width: "100%"}}>
-        <input type="checkbox" className="btn-check" id="submitbtn" checked={isSubmitted} onClick={() => toggleSubmit()}autoComplete="off" />
+        <input type="checkbox" className="btn-check" id="submitbtn" checked={isSubmitted} onClick={() => toggleSubmit()} autoComplete="off" />
         <label className={`btn btn-success`} style={{width:"20%", backgroundColor:"#479f76"}} htmlFor="submitbtn">{isSubmitted ? "Submitted":"Submit"}</label>
       </div>
     </div>

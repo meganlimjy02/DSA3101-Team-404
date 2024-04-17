@@ -1,6 +1,6 @@
 "use client"
 
-import Link from 'next/link';
+import styles from './page.module.css'
 import { SyntheticEvent, useState } from 'react';
 import { UserAPIs } from '../apis/userAPI';
 import { useRouter } from 'next/navigation';
@@ -14,6 +14,8 @@ export default function Page() {
   const handleStaffLogin = async () => {
     UserAPIs.loginUser(username,password)
     .then(res => {
+      console.log("attempting to log in staff...")
+      console.log(res.data)
       if (res.data.role != "staff") {
         throw new Error()
       }
@@ -45,6 +47,9 @@ export default function Page() {
 
   return <>
     <div className='container-fluid min-vh-100 d-flex flex-column' style={{backgroundColor: "#479f76"}}>
+      {/* <div className={styles.header}>
+        <h1 className="m-auto" style={{color: "#FFFFFF"}}>S.O.R.T.</h1>
+      </div> */}
       <div className="card m-auto p-3" style={{width: "30rem"}}>
         <div className="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
           <button className="nav-link active" id="nav-staff-tab" data-bs-toggle="tab" data-bs-target="#nav-staff" type="button" role="tab" >
@@ -67,7 +72,7 @@ export default function Page() {
                 <input type="password" className="form-control" id="exampleInputPassword1" value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
               {/* <Link href="/staff"> */}
-                <button type="button" className="w-100 mt-2 btn btn-success" onClick={() => handleStaffLogin()}>Log in</button>
+                <button type="button" className="w-100 mt-2 btn btn-success" style={{backgroundColor: "#479f76"}} onClick={() => handleStaffLogin()}>Log in</button>
               {/* </Link> */}
             </form>
           </div>

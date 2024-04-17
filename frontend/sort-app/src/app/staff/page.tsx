@@ -64,6 +64,8 @@ export default function Page() {
 
     <div className={styles.welcome}>
       <h1 className="display-6">Hello, {name}!</h1>
+      <div className='d-flex' style={{justifyContent: "right", width: "80%", alignItems: "center", fontSize: "18px", fontWeight: "bold"}}>Today: {currentDate.getDate()}/{currentDate.getMonth()+1}/{currentDate.getFullYear()}
+      </div>
     </div>
 
     <div className='d-flex'>

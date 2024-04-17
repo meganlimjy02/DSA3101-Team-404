@@ -5,6 +5,19 @@ const BASE_URL = "http://127.0.0.1:5000"
 // let loggedInUser;
 
 export class UserAPIs {
+  static createUser = async (username: string, password: string, role: "staff" | "manager") => {
+    const headers = {
+      Role: "manager"
+    }
+
+    const response = await axios.post(BASE_URL + "/staff", {
+      _id: username,
+      password,
+      role
+    }, {headers})
+    console.log(response)
+  }
+
   static loginUser = async (username: string, password: string) => {
     const response = await axios.post(BASE_URL + "/login", {
       username: username,
