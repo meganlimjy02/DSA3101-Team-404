@@ -1,11 +1,56 @@
-.dayCell {
-    background-color: yellow;
-  }
-  
-  .nightCell {
-    background-color: lightskyblue;
-  }
-  .xCell {
-    background-color: grey;
-  }
-  
+/* page.module.css */
+
+.navbar {
+  background-color: #28a745;
+}
+
+.brand {
+  color: #fff;
+}
+
+.navButton {
+  color: #fff;
+}
+
+.welcome {
+  margin-top: 20px;
+}
+
+.welcomeText {
+  color: #000;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+.table {
+  border: 1px solid black;
+}
+
+.columnHeader {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.employeeCell {
+  border: 1px solid black;
+}
+
+.shiftCell {
+  border: 1px solid black;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.primaryShift {
+  background-color: #007bff;
+}
+
+.warningShift {
+  background-color: #ffc107;
+}
+
+.offShift {
+  background-color: #6c757d;
+}
