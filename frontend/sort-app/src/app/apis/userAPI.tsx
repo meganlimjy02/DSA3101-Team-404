@@ -5,6 +5,11 @@ const BASE_URL = "http://127.0.0.1:5000"
 // let loggedInUser;
 
 export class UserAPIs {
+  static getUserList = async () => {
+    const response = await axios.get(BASE_URL + "/userlist")
+    return response.data
+  }
+
   static createUser = async (username: string, password: string, role: "full" | "part" | "manager") => {
     const headers = {
       Role: "manager"

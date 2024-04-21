@@ -1,25 +1,26 @@
 "use client"
 import { UserAPIs } from '@/app/apis/userAPI';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './acc.css';
 
 export default function AccountCreationPage() {
 
-
-  const accounts = [
-    { username: 'staff0', role: 'staff' },
-    { username: 'staff1', role: 'staff' },
-    { username: 'man0', role: 'manager' },
-    { username: 'man1', role: 'manager' },
-    
-  ];
+  const [accounts, setAccounts]: [any[], Function] = useState([])
+  useEffect(() => {
+    UserAPIs.getUserList()
+      .then(data => {
+        setAccounts(data)
+        // console.log("this is running", accounts)
+      })
+  }, []) 
 
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [areRolesSelected, setAreRolesSelected] = useState([true, false])
   const [areTimerRolesSelected, setAreTimerRolesSelected] = useState([true, false])
- 
+  const [isCreated, setIsCreated] = useState(false)
+
   const toggleRole = () => {
     if (areRolesSelected[0]) {
       setAreRolesSelected([false, true])
@@ -43,12 +44,18 @@ export default function AccountCreationPage() {
     } else {
       UserAPIs.createUser(username, password, areTimerRolesSelected[0] ? "full" : "part")
     }
+    setIsCreated(true)
   }
 
   const handleDeleteAccount = () => {
 
   }
 
+  const displayCreated = (isError: boolean) => {
+    if (isError) {
+      return [<div className="alert alert-success" role="alert">Account created</div>]
+    } 
+  }
 
   return (
     <div className='container-fluid min-vh-100 d-flex flex-column' style={{ backgroundColor: "#e9ecef" }}>
@@ -68,7 +75,7 @@ export default function AccountCreationPage() {
 
       {/* Static Modal */}
       <div className="modal fade" id="createAccountModal" aria-labelledby="createAccountModalLabel" aria-hidden="true">
-        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable d-flex flex-column">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="createAccountModalLabel">Create New Account</h5>
@@ -85,7 +92,7 @@ export default function AccountCreationPage() {
                   <input type="radio" className="btn-check" name="btnradio" id="btnradio2" autoComplete="off" checked={areRolesSelected[1]} onClick={() => toggleRole()} />
                   <label className="btn btn-outline-primary" htmlFor="btnradio2">Manager</label>
                 </div>
-                <div className="">
+                <div className="d-flex">
                   <div className="form-check">
                     <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked={areTimerRolesSelected[0]} onClick={() => toggleTimer()} />
                     <label className="form-check-label" htmlFor="flexRadioDefault1">
@@ -110,15 +117,13 @@ export default function AccountCreationPage() {
                 </div>
 
                 {/* Additional form fields for account creation */}
-                <button type="button" className="w-100 mt-2 btn btn-primary" onClick={() => handleCreateAccount()}>Create Account</button>
               </form>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary" onClick={() => handleCreateAccount()}>Save changes</button>
-
+              <button type="button" className="w-100 mt-2 btn btn-primary" onClick={() => handleCreateAccount()}>Create Account</button>
             </div>
           </div>
+          {displayCreated(isCreated)}
         </div>
       </div>
 
@@ -129,7 +134,7 @@ export default function AccountCreationPage() {
             <div className="card h-100 shadow-sm">
               <div className="card-body d-flex align-items-center justify-content-between">
                 <div>
-                  <h5 className="card-title">{account.username}</h5>
+                  <h5 className="card-title">{account._id}</h5>
                   <p className="card-text">Role: {account.role}</p>
                 </div>
                 <button className="btn btn-danger">Delete</button>
