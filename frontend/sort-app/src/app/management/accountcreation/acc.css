@@ -40,7 +40,7 @@
   }
   
 
-/* Light-Themed High-Tech Modal Style */
+
 .modal-content {
     background: #ffffff; /* Light background for the modal */
     color: #333; /* Dark text color for contrast */
@@ -60,7 +60,7 @@
     filter: none; /* Keep the close button default */
 }
 
-/* Styling for form inputs to keep them sleek and modern */
+
 .form-control {
     background-color: #f8f9fa;
     border: 1px solid #ced4da;

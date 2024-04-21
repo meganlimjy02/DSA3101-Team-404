@@ -1,40 +1,57 @@
 import styles from "./timetables.module.css";
 import stylesC from "./editable.module.css";
 import Image from 'next/image';
-import { JSX, useState } from 'react';
+import { JSX, useEffect, useState } from 'react';
 import { TimetableAPIs } from "../apis/timetableAPI";
 
 export default function Editable({dateHtmlNext, dayHtml}: any) {
   const shiftList = ['Monday1','Monday2','Tuesday1','Tuesday2','Wednesday1','Wednesday2'
   ,'Thursday1','Thursday2','Friday1','Friday2','Saturday1','Saturday2','Sunday1','Sunday2']
 
-  const [isFreeShifts, setIsFreeShifts] = useState(new Array(14).fill(false))
+  const [isSelectedShifts, setIsSelectedShifts] = useState(new Array(14).fill(false))
   const [isSelectAll, setIsSelectAll] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
+  useEffect(() => {
+    TimetableAPIs.getAvailabilityOfUser(sessionStorage.getItem("storedUser"))
+      .then(data => {
+        if (data) {
+          const prefilledShifts = new Array(14).fill(false)
+          data['availability'].forEach((shift: string) => {
+            let shiftIndex = shiftList.indexOf(shift)
+            if (shiftIndex != -1) {
+              prefilledShifts[shiftIndex] = true
+            }
+          })
+          setIsSelectedShifts(prefilledShifts)
+          setIsSubmitted(true)
+        }
+      })
+  }, []) 
+
   const transformedShifts: string[] = []
   for (let i=0; i<14; i++) {
-    if (isFreeShifts[i]) {
+    if (isSelectedShifts[i]) {
       transformedShifts.push(shiftList[i])
     }
   }
 
   const handleCheckbox = (i: number) => {
-    const updatedFreeShifts = [...isFreeShifts]
-    updatedFreeShifts[i] = !updatedFreeShifts[i]
+    const updatedSelectedShifts = [...isSelectedShifts]
+    updatedSelectedShifts[i] = !updatedSelectedShifts[i]
 
     let isAllSelected = true
-    updatedFreeShifts.forEach(updatedFreeShift => {
-      isAllSelected = isAllSelected && updatedFreeShift
+    updatedSelectedShifts.forEach(updatedSelectedShift => {
+      isAllSelected = isAllSelected && updatedSelectedShift
     })
     setIsSelectAll(isAllSelected)
 
-    setIsFreeShifts(updatedFreeShifts)
+    setIsSelectedShifts(updatedSelectedShifts)
   }
 
   const toggleSelectAll = () => {
     const state = isSelectAll
-    setIsFreeShifts(new Array(14).fill(!state))
+    setIsSelectedShifts(new Array(14).fill(!state))
     setIsSelectAll(!state)
   }
 
@@ -47,7 +64,7 @@ export default function Editable({dateHtmlNext, dayHtml}: any) {
 
   const checkBug = []
   for (let i=0; i<14; i++) {
-    if (isFreeShifts[i]) {
+    if (isSelectedShifts[i]) {
       checkBug.push(<div>1</div>)
     } else {
       checkBug.push(<div>0</div>)
@@ -56,23 +73,23 @@ export default function Editable({dateHtmlNext, dayHtml}: any) {
 
   const checkrow1: JSX.Element[] = []
   for (let i=0; i<14; i+=2) {
-    checkrow1.push(<input type="checkbox" className="btn-check" id={"btncheck" + i} checked={isFreeShifts[i]} onClick={() => handleCheckbox(i)} autoComplete="off"/>)
+    checkrow1.push(<input type="checkbox" className="btn-check" id={"btncheck" + i} checked={isSelectedShifts[i]} onClick={() => handleCheckbox(i)} autoComplete="off"/>)
     checkrow1.push(<label className={`col btn btn-outline-warning ${stylesC.squarebutton}`} htmlFor={"btncheck" + i}></label>)
   }
   const checkrow1Sub: JSX.Element[] = []
   for (let i=0; i<14; i+=2) {
-    checkrow1Sub.push(<input type="checkbox" className="btn-check" id={"btncheck" + i} checked={isFreeShifts[i]} onClick={() => handleCheckbox(i)} autoComplete="off" disabled/>)
+    checkrow1Sub.push(<input type="checkbox" className="btn-check" id={"btncheck" + i} checked={isSelectedShifts[i]} onClick={() => handleCheckbox(i)} autoComplete="off" disabled/>)
     checkrow1Sub.push(<label className={`col btn btn-outline-warning ${stylesC.squarebutton}`} htmlFor={"btncheck" + i}></label>)
   }
 
   const checkrow2: JSX.Element[] = []
   for (let i=1; i<14; i+=2) {
-    checkrow2.push(<input type="checkbox" className="btn-check" id={"btncheck" + i} checked={isFreeShifts[i]} onClick={() => handleCheckbox(i)} autoComplete="off"/>)
+    checkrow2.push(<input type="checkbox" className="btn-check" id={"btncheck" + i} checked={isSelectedShifts[i]} onClick={() => handleCheckbox(i)} autoComplete="off"/>)
     checkrow2.push(<label className={`col btn btn-outline-primary ${stylesC.squarebutton}`} htmlFor={"btncheck" + i}></label>)
   }
   const checkrow2Sub: JSX.Element[] = []
   for (let i=1; i<14; i+=2) {
-    checkrow2Sub.push(<input type="checkbox" className="btn-check" id={"btncheck" + i} checked={isFreeShifts[i]} onClick={() => handleCheckbox(i)} autoComplete="off" disabled/>)
+    checkrow2Sub.push(<input type="checkbox" className="btn-check" id={"btncheck" + i} checked={isSelectedShifts[i]} onClick={() => handleCheckbox(i)} autoComplete="off" disabled/>)
     checkrow2Sub.push(<label className={`col btn btn-outline-primary ${stylesC.squarebutton}`} htmlFor={"btncheck" + i}></label>)
   }
 

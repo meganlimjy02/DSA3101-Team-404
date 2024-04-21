@@ -7,7 +7,7 @@ import Timetables from './timetables';
 
 export default function Page() {
   
-  const name = "John"
+  const name = sessionStorage.getItem("storedUser")
   const daysOfWeek = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
   const curSchedBusy = [0,2,3,5,7,8,10,11] // get employee schedule for this week
   const dayHtml = []
@@ -20,7 +20,7 @@ export default function Page() {
   
   // Mon, Tue, ..., Sun : 1, 2, ..., 0
   const currentDate = new Date()
-  const thisMonDate = ((currentDate.getDate()==0) ? currentDate.getDate()-6 : currentDate.getDate()-currentDate.getDay()+1)
+  const thisMonDate = ((currentDate.getDay()==0) ? currentDate.getDate()-6 : currentDate.getDate()-currentDate.getDay()+1)
   let thisMonth = currentDate.getMonth()+1
   let thisDate = thisMonDate
   // for loop to fill in the dates for this and next week

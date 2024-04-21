@@ -1,6 +1,8 @@
-import React from "react";
+"use client"
+import React, { useState } from "react";
 import styles from "./page.module.css";
 import Link from 'next/link';
+import { TimetableAPIs } from "../apis/timetableAPI";
 
 export default function Page() {
   // Interface for employee shifts
@@ -13,10 +15,10 @@ export default function Page() {
   let thisMonth = currentDate.getMonth()+1
   let thisDate = thisMonDate
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  const dayOfWeek = days[currentDate.getDay()];
+  const dayOfWeek = days[currentDate.getDay()-1];
 
   // Sample data representing shifts for employees
-  const shiftsData = {
+  let shiftsData: any = {
     'Monday1': ['F01', 'F02', 'F03', 'F05', 'F07', 'P01', 'P03', 'P05'],
     'Monday2': ['F01', 'F02', 'F03', 'F04', 'F07', 'P02', 'P04', 'P05'],
     'Tuesday1': ['F02', 'F04', 'F05', 'F06', 'P03', 'P04', 'P05'],
@@ -34,17 +36,40 @@ export default function Page() {
   };
 
   // Convert shiftsData to the desired format
-  const employeeShifts: EmployeeShifts = {};
+  const initialEmployeeShifts: EmployeeShifts = {};
 
   Object.keys(shiftsData).forEach(day => {
     shiftsData[day].forEach((employee: string | number) => {
-      if (!employeeShifts[employee]) {
-        employeeShifts[employee] = [];
+      if (!initialEmployeeShifts[employee]) {
+        initialEmployeeShifts[employee] = [];
       }
       const shortDay = day.substring(0, 3) + (day.endsWith("2") ? "2" : "1");
-      employeeShifts[employee].push(shortDay);
+      initialEmployeeShifts[employee].push(shortDay);
     });
   });
+
+  const [employeeShifts, setEmployeeShifts] = useState(initialEmployeeShifts)
+
+  const loadTimeTable = async () => {
+    TimetableAPIs.generateTimetable(currentDate)
+    .then((data: any) => {
+      const newEmployeeShifts: any = {}
+      const timetable = data["timetable"]
+      Object.entries(timetable).forEach(([employeeId, days]: any) => {
+        Object.entries(days)
+          .filter(([day, isWork]) => isWork == 1)
+          .map(([day, isWork]) => day.substring(0, 3) + (day.endsWith("2") ? "2" : "1"))
+          .forEach(shortDay => {
+            if (!newEmployeeShifts[employeeId]) {
+              newEmployeeShifts[employeeId] = [shortDay]
+            } else {
+              newEmployeeShifts[employeeId].push(shortDay)
+            }
+          })
+      })
+      setEmployeeShifts(newEmployeeShifts)
+    })
+  }
 
   // Define a function to determine the CSS class and text content based on the shift type
   const getClassAndTextForShift = (employee: string, day: string) => {
@@ -82,16 +107,19 @@ export default function Page() {
       </nav>
 
       <div className={styles.welcome}>
-        <div className="d-flex justify-content-between align-items-center">
+        <div className="d-flex justify-content-between align-items-center" style={{paddingLeft: "30px", paddingRight: "30px"}}>
           <h1 className="display-6">Hello, Manager!</h1>
           <div className="font-weight-bold">
-          <h1 className="display-6">Today: {dayOfWeek} {currentDate.getDate()}/{currentDate.getMonth() + 1}/{currentDate.getFullYear()}</h1>
+            <h1 className="display-6">Today: {dayOfWeek} {currentDate.getDate()}/{currentDate.getMonth() + 1}/{currentDate.getFullYear()}</h1>
+          </div>
         </div>
       </div>
-      </div>
-
 
       <div className="container mt-4">
+        <div className={styles.buttonsContainer}>
+          <button type="button" className="btn btn-primary" onClick={() => loadTimeTable()}>Refresh Timetable</button>
+        </div>
+
         <table className="table table-bordered">
           <thead>
             <tr>

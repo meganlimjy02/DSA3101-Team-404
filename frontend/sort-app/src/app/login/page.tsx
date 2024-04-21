@@ -4,19 +4,21 @@ import styles from './page.module.css'
 import { SyntheticEvent, useState } from 'react';
 import { UserAPIs } from '../apis/userAPI';
 import { useRouter } from 'next/navigation';
+import { error } from 'console';
 
 export default function Page() {
   const router = useRouter()
 
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [isWrongLogin, setIsWrongLogin] = useState(false)
 
   const handleStaffLogin = async () => {
     UserAPIs.loginUser(username,password)
     .then(res => {
       console.log("attempting to log in staff...")
       console.log(res.data)
-      if (res.data.role != "staff") {
+      if (res.data.role != "full" && res.data.role != "part") {
         throw new Error()
       }
       sessionStorage.setItem("storedUser",username)
@@ -26,6 +28,7 @@ export default function Page() {
     })
     .catch(err => {
       console.log(err)
+      setIsWrongLogin(true)
     })
   }
 
@@ -42,7 +45,18 @@ export default function Page() {
     })
     .catch(err => {
       console.log(err)
+      setIsWrongLogin(true)
     })
+  }
+
+  const errorPopup = [
+    <div className="alert alert-danger" role="alert">
+      Wrong credentials!
+    </div>]
+  const displayErrorPopup = (isWrong: boolean) => { 
+    if (isWrong) {
+      return errorPopup
+    }
   }
 
   return <>
@@ -93,6 +107,11 @@ export default function Page() {
           </div>
         </div>
       </div>
+
+      <div>
+        {displayErrorPopup(isWrongLogin)}
+      </div>
+
     </div>
   </>
 }

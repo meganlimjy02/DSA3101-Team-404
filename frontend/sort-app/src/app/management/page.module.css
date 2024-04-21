@@ -20,6 +20,12 @@
   color: #000;
 }
 
+.buttonsContainer {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 20px;
+}
+
 .container {
   margin-top: 20px;
 }

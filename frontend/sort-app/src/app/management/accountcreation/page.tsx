@@ -8,17 +8,18 @@ export default function AccountCreationPage() {
 
 
   const accounts = [
-    { username: 'user1', role: 'Part Time' },
-    { username: 'user2', role: 'Full Time' },
-    { username: 'user3', role: 'Part Time' },
-    { username: 'user4', role: 'Full Time' },
-    // Add more account objects here...
+    { username: 'staff0', role: 'staff' },
+    { username: 'staff1', role: 'staff' },
+    { username: 'man0', role: 'manager' },
+    { username: 'man1', role: 'manager' },
+    
   ];
 
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [areRolesSelected, setAreRolesSelected] = useState([true, false])
-
+  const [areTimerRolesSelected, setAreTimerRolesSelected] = useState([true, false])
+ 
   const toggleRole = () => {
     if (areRolesSelected[0]) {
       setAreRolesSelected([false, true])
@@ -26,10 +27,22 @@ export default function AccountCreationPage() {
       setAreRolesSelected([true, false])
     }
   }
+  const toggleTimer = () => {
+    if (areTimerRolesSelected[0]) {
+      setAreTimerRolesSelected([false, true])
+    } else {
+      setAreTimerRolesSelected([true, false])
+    }
+  }
 
   const handleCreateAccount = () => {
     console.log("Creating new user", username, password, areRolesSelected)
-    UserAPIs.createUser(username, password, areRolesSelected[0] ? "staff" : "manager")
+    if (areRolesSelected[1]) {
+      UserAPIs.createUser(username, password, "manager")
+      
+    } else {
+      UserAPIs.createUser(username, password, areTimerRolesSelected[0] ? "full" : "part")
+    }
   }
 
   const handleDeleteAccount = () => {
@@ -54,7 +67,7 @@ export default function AccountCreationPage() {
 
 
       {/* Static Modal */}
-      <div className="modal fade" id="createAccountModal" tabIndex="-1" aria-labelledby="createAccountModalLabel" aria-hidden="true">
+      <div className="modal fade" id="createAccountModal" aria-labelledby="createAccountModalLabel" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div className="modal-content">
             <div className="modal-header">
@@ -64,6 +77,29 @@ export default function AccountCreationPage() {
             <div className="modal-body">
               {/* Account Creation Form */}
               <form>
+
+                <div className="btn-group" role="group">
+                  <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autoComplete="off" checked={areRolesSelected[0]} onClick={() => toggleRole()} />
+                  <label className="btn btn-outline-primary" htmlFor="btnradio1">Staff</label>
+
+                  <input type="radio" className="btn-check" name="btnradio" id="btnradio2" autoComplete="off" checked={areRolesSelected[1]} onClick={() => toggleRole()} />
+                  <label className="btn btn-outline-primary" htmlFor="btnradio2">Manager</label>
+                </div>
+                <div className="">
+                  <div className="form-check">
+                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked={areTimerRolesSelected[0]} onClick={() => toggleTimer()} />
+                    <label className="form-check-label" htmlFor="flexRadioDefault1">
+                      Full-time
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked={areTimerRolesSelected[1]} onClick={() => toggleTimer()} />
+                    <label className="form-check-label" htmlFor="flexRadioDefault2">
+                      Part-time
+                    </label>
+                  </div>
+                </div>
+
                 <div className="mb-3">
                   <label htmlFor="username" className="form-label">Username</label>
                   <input type="text" className="form-control" id="username" aria-describedby="emailHelp"  onChange={(e) => setUsername(e.target.value)} />
@@ -72,13 +108,7 @@ export default function AccountCreationPage() {
                   <label htmlFor="new-password" className="form-label">Password</label>
                   <input type="password" className="form-control" id="password" onChange={(e) => setPassword(e.target.value)} />
                 </div>
-                <div className="btn-group" role="group">
-                  <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autoComplete="off" checked={areRolesSelected[0]} onClick={() => toggleRole()} />
-                  <label className="btn btn-outline-primary" htmlFor="btnradio1">Staff</label>
 
-                  <input type="radio" className="btn-check" name="btnradio" id="btnradio2" autoComplete="off" checked={areRolesSelected[1]} onClick={() => toggleRole()} />
-                  <label className="btn btn-outline-primary" htmlFor="btnradio2">Manager</label>
-                </div>
                 {/* Additional form fields for account creation */}
                 <button type="button" className="w-100 mt-2 btn btn-primary" onClick={() => handleCreateAccount()}>Create Account</button>
               </form>
@@ -100,7 +130,7 @@ export default function AccountCreationPage() {
               <div className="card-body d-flex align-items-center justify-content-between">
                 <div>
                   <h5 className="card-title">{account.username}</h5>
-                  <p className="card-text">{account.role}</p>
+                  <p className="card-text">Role: {account.role}</p>
                 </div>
                 <button className="btn btn-danger">Delete</button>
               </div>
