@@ -20,9 +20,9 @@ export default function Page() {
   
   // Mon, Tue, ..., Sun : 1, 2, ..., 0
   const currentDate = new Date()
-  const thisMonDate = ((currentDate.getDay()==0) ? currentDate.getDate()-6 : currentDate.getDate()-currentDate.getDay()+1)
-  let thisMonth = currentDate.getMonth()+1
-  let thisDate = thisMonDate
+  const thisMonDate = new Date(currentDate.setDate(((currentDate.getDay()==0) ? currentDate.getDate()-6 : currentDate.getDate()-currentDate.getDay()+1)))
+  let thisMonth = thisMonDate.getMonth()+1
+  let thisDate = thisMonDate.getDate()
   // for loop to fill in the dates for this and next week
   for (let i=0; i<14; i++) {
     let maxDays
@@ -57,7 +57,12 @@ export default function Page() {
       <div className="container-fluid">
         <span className="navbar-brand mb-0 h1 text-light">S.O.R.T.</span>
         <Link href="/login">
-          <button type="button" className="btn btn-outline-light">Log out</button>
+          <button type="button" className="btn btn-outline-light">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-right me-1" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+              <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+            </svg>
+            Log out</button>
         </Link>
       </div>
     </nav>

@@ -29,6 +29,11 @@ export class TimetableAPIs {
     console.log(response.data)
   }
 
+  static getTimetable = async () => {
+    const response = await axios.get(BASE_URL + "/timetable")
+    return response.data
+  }
+
   static generateTimetable = async (startDate: Date) => {
     const dateString = startDate.getFullYear() + "-" + String(startDate.getMonth() + 1).padStart(2, "0") + "-" + String(startDate.getDate() + 1).padStart(2, "0")
 

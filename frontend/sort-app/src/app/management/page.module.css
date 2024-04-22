@@ -26,6 +26,14 @@
   margin-bottom: 20px;
 }
 
+.costCard {
+  border-radius: 10px;
+  border: 2px solid #c2c5c7;
+  padding: 7px 10px;
+  margin-right: 695px; 
+  width: 50%;
+}
+
 .container {
   margin-top: 20px;
 }
@@ -59,4 +67,24 @@
 
 .offShift {
   background-color: #6c757d;
+}
+
+.alertStyle {
+  position: sticky;
+  width: calc(100vw - 40px);
+  bottom: 20px;
+  margin: 0 20px;
+  -webkit-animation: fadeOut 4s;
+  animation: fadeOut 4s;
+  animation-fill-mode: forwards;
+}
+@-webkit-keyframes fadeOut {
+  0% { opacity: 1; }
+  80% { opacity: 1; bottom: 20px;}
+  100% { opacity: 0; bottom: 0;}
+}  
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  80% { opacity: 1; bottom: 20px;}
+  100% { opacity: 0; bottom: 0;}
 }

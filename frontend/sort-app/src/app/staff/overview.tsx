@@ -44,6 +44,34 @@ export default function Overview({curSchedBusy} : any) {
     }]
   }
 
+  const MILLISECONDS_IN_A_WEEK = 1000 * 60 * 60 * 24 * 7
+  const MILLISECONDS_IN_A_DAY = 1000 * 60 * 60 * 24
+  const thisMonDate = ((currentDate.getDay()==0) ? currentDate.getDate()-6 : currentDate.getDate()-currentDate.getDay()+1)
+  let monMili = new Date(currentDate.setDate(thisMonDate)).getTime()
+  let sunMili
+  const previous6Weeks: string[] = []
+  for (let i=0; i<6; i++) {
+    sunMili = monMili - MILLISECONDS_IN_A_DAY
+    monMili = monMili - MILLISECONDS_IN_A_WEEK
+    let sunDay = new Date(sunMili)
+    let monDay = new Date(monMili)
+    let thisWeek = monDay.getDate() +"/"+ (monDay.getMonth()+1) + " - " + sunDay.getDate() +"/"+ (sunDay.getMonth()+1)
+    previous6Weeks.push(thisWeek)
+  }
+
+  const datapoints: any[] = [
+    { x: 1, y: 10, label: "11/03 - 17/03" },
+    { x: 2, y: 12, label: "18/03 - 24/03" },
+    { x: 3, y: 5, label: "25/03 - 31/03" },
+    { x: 4, y: 7, label: "01/04 - 07/04" },
+    { x: 5, y: 8, label: "08/04 - 14/04" },
+    { x: 6, y: 8, label: ""}
+  ]
+  for (let i=0;i<6;i++) {
+    datapoints[i].label = previous6Weeks[5-i]
+  }
+  console.log(datapoints)
+
   const pastShiftsOptions = {
     title: {
       text: "Past Shifts Completed",
@@ -62,13 +90,7 @@ export default function Overview({curSchedBusy} : any) {
     height: 300,
     data: [{
       type: "line",
-      dataPoints: [
-        { x: 1, y: 10, label: "11/03 - 17/03" },
-        { x: 2, y: 12, label: "18/03 - 24/03" },
-        { x: 3, y: 5, label: "25/03 - 31/03" },
-        { x: 4, y: 7, label: "01/04 - 07/04" },
-        { x: 5, y: 8, label: "08/04 - 14/04" }
-      ]
+      dataPoints: datapoints
     }]
   }
 
