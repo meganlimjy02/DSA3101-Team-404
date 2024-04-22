@@ -4,8 +4,19 @@ import styles from "./page.module.css";
 import stylesT from "./timetables.module.css"
 import Overview from './overview';
 import Timetables from './timetables';
+import { useEffect } from 'react';
+import { redirect } from 'next/navigation';
 
 export default function Page() {
+
+  useEffect(() => {
+    const storedRole = sessionStorage.getItem("storedRole")
+    if (storedRole == 'manager') {
+      redirect("/management")
+    } else if (storedRole != 'staff') {
+      redirect("/login")
+    }
+  }, [])
   
   const name = sessionStorage.getItem("storedUser")
   const daysOfWeek = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
@@ -50,13 +61,17 @@ export default function Page() {
     dateHtmlNext.push(<div className={`col ${stylesT.cellDates}`} style={{fontFamily: "Monaco", fontSize: "20px"}}>{datesNextWeek[i]}</div>)
   }
 
+  const logoutUser = () => {
+    sessionStorage.removeItem("storedUser")
+    sessionStorage.removeItem("storedRole")
+  }
 
   return <>
   <div className="d-flex flex-column " style={{backgroundColor: "#fefbf6", height: "100vh"}}>
     <nav className="navbar navbar-light" style={{backgroundColor: "#479f76"}}>
       <div className="container-fluid">
         <span className="navbar-brand mb-0 h1 text-light">S.O.R.T.</span>
-        <Link href="/login">
+        <Link href="/login" onClick={() => logoutUser()}>
           <button type="button" className="btn btn-outline-light">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-right me-1" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>

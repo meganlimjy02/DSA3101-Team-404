@@ -3,12 +3,15 @@ import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Link from 'next/link';
 import { TimetableAPIs } from "../apis/timetableAPI";
+import { redirect } from "next/navigation";
 
 export default function Page() {
+  
   // Interface for employee shifts
   interface EmployeeShifts {
     [employee: string]: string[];
   }
+
   // Mon, Tue, ..., Sun : 1, 2, ..., 0
   const currentDate = new Date()
   const thisMonDate = ((currentDate.getDate()==0) ? currentDate.getDate()-6 : currentDate.getDate()-currentDate.getDay()+1)
@@ -57,6 +60,12 @@ export default function Page() {
 
   // Retrieves current timetable when page loads from backend
   useEffect(() => {
+    const storedRole = sessionStorage.getItem("storedRole")
+    if (storedRole == 'staff') {
+      redirect("/staff")
+    } else if (storedRole != 'manager') {
+      redirect("/login")
+    }
     TimetableAPIs.getTimetable()
       .then((data: any) => {
         setEmployeeShifts(formatTimetableToShifts(data["timetable"]))
@@ -119,6 +128,11 @@ export default function Page() {
     return `${days[dayIndex]}${dayNumber}`;
   };
 
+  const logoutUser = () => {
+    sessionStorage.removeItem("storedUser")
+    sessionStorage.removeItem("storedRole")
+  }
+
   return <>
       <nav className="navbar navbar-light" style={{backgroundColor: "#479f76"}}>
         <div className="container-fluid">
@@ -131,7 +145,7 @@ export default function Page() {
                 </svg>
                 Manage Accounts</button>
             </Link>
-            <Link href="/login">
+            <Link href="/login" onClick={() => logoutUser()}>
               <button type="button" className="btn btn-outline-light">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-right me-1" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
@@ -172,75 +186,82 @@ export default function Page() {
               <h6 className="text-muted">{Object.keys(employeeShifts).length}</h6>
             </div>
           </div>
-          <div style={{alignContent: "end"}}>
-            <button type="button" className="btn btn-primary" onClick={() => refreshTimetable()} disabled={isGenerating}>
-              {isGenerating && 
-                <div className="spinner-border" role="status">
-                  <span className="visually-hidden">Loading...</span>
-                </div>
-              }
-              {isGenerating ? "Refreshing..." : "Refresh Timetable"}
-            </button>
-          </div>
+    
         </div>
+
+        <div className={styles.timetableCard}>
         
-        {!isTableDisplayed && 
-          <div className="d-flex justify-content-center">
-            <div className="spinner-border" role="status">
-              <span className="visually-hidden">Loading...</span>
+          {!isTableDisplayed && 
+            <div className="d-flex justify-content-center">
+              <div className="spinner-border" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
             </div>
-          </div>
-        }
+          }
 
-        {isTableDisplayed && 
-          <table className="table table-bordered">
-            <thead>
-              <tr>
-                <th scope="col" style={{ border: '1px solid black' }}>Employee</th>
-                {Array.from(Array(14).keys()).map((dayOffset) => (
-                  <th key={dayOffset} scope="col" style={{ width: `${100 / 14}%`, border: '1px solid black' }}>{getCurrentDate(dayOffset)}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {Object.keys(employeeShifts).map((employee, employeeIndex) => (
-                <tr key={employeeIndex}>
-                  <td style={{ border: '1px solid black' }}>{employee}</td>
-                  {Array.from(Array(14).keys()).map((dayOffset) => {
-                    const day = getCurrentDate(dayOffset);
-                    const { className, text } = getClassAndTextForShift(employee, day);
-                    return (
-                      <td key={dayOffset} className={`align-middle ${className}`} style={{ width: `${100 / 14}%`, border: '1px solid black' }}>
-                        <span style={{fontWeight:"bold"}}>{text}</span>
-                      </td>
-                    );
-                  })}
+          {isTableDisplayed && 
+            <table className="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col" style={{ border: '1px solid black' }}>Employee</th>
+                  {Array.from(Array(14).keys()).map((dayOffset) => (
+                    <th key={dayOffset} scope="col" style={{ width: `${100 / 14}%`, border: '1px solid black' }}>{getCurrentDate(dayOffset)}</th>
+                  ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        }
+              </thead>
+              <tbody>
+                {Object.keys(employeeShifts).map((employee, employeeIndex) => (
+                  <tr key={employeeIndex}>
+                    <td style={{ border: '1px solid black' }}>{employee}</td>
+                    {Array.from(Array(14).keys()).map((dayOffset) => {
+                      const day = getCurrentDate(dayOffset);
+                      const { className, text } = getClassAndTextForShift(employee, day);
+                      return (
+                        <td key={dayOffset} className={`align-middle ${className}`} style={{ width: `${100 / 14}%`, border: '1px solid black' }}>
+                          <span style={{fontWeight:"bold"}}>{text}</span>
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          }
+          <div className='d-flex'>
+            <div className="d-flex flex-column" style={{justifyContent:"end", width:"100%"}}>
+              <div className="d-flex" style={{justifyContent: "start"}}>
+                <div className="bg-warning d-flex" style={{width:"50px", height:"20px", justifyContent:"center", alignItems:"center"}}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-check-lg" viewBox="0 0 16 16"><path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/></svg>
+                </div>
+                <span>&nbsp;Working day shift</span>
+              </div>
+              <div className="d-flex" style={{justifyContent: "start"}}>
+                <div className="bg-primary d-flex" style={{width:"50px", height:"20px", justifyContent:"center", alignItems:"center"}}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-check-lg" viewBox="0 0 16 16"><path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/></svg>
+                </div>
+                <span>&nbsp;Working night shift</span>
+              </div>
+              <div className="d-flex" style={{justifyContent: "start"}}>
+                <div className="bg-secondary d-flex" style={{width:"50px", height:"20px", justifyContent:"center", alignItems:"center", fontWeight:"bold"}}>
+                  Off
+                </div>
+                <span>&nbsp;Not working</span>
+              </div>
+            </div>
 
-        <div className="d-flex flex-column" style={{justifyContent:"end", width:"100%"}}>
-          <div className="d-flex" style={{justifyContent: "start"}}>
-            <div className="bg-warning d-flex" style={{width:"50px", height:"20px", justifyContent:"center", alignItems:"center"}}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-check-lg" viewBox="0 0 16 16"><path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/></svg>
+            <div style={{justifyContent: "end"}}>
+              <button type="button" className="btn btn-primary" onClick={() => refreshTimetable()} disabled={isGenerating}>
+                {isGenerating && 
+                  <div className="spinner-border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                }
+                {isGenerating ? "Refreshing..." : "Refresh Timetable"}
+              </button>
             </div>
-            <span>&nbsp;Working day shift</span>
-          </div>
-          <div className="d-flex" style={{justifyContent: "start"}}>
-            <div className="bg-primary d-flex" style={{width:"50px", height:"20px", justifyContent:"center", alignItems:"center"}}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-check-lg" viewBox="0 0 16 16"><path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/></svg>
-            </div>
-            <span>&nbsp;Working night shift</span>
-          </div>
-          <div className="d-flex" style={{justifyContent: "start"}}>
-            <div className="bg-secondary d-flex" style={{width:"50px", height:"20px", justifyContent:"center", alignItems:"center", fontWeight:"bold"}}>
-              Off
-            </div>
-            <span>&nbsp;Not working</span>
           </div>
         </div>
+
       </div>
 
       {alertMessage != "" &&

@@ -1,12 +1,22 @@
 "use client"
 
 import styles from './page.module.css'
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import { UserAPIs } from '../apis/userAPI';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { error } from 'console';
 
 export default function Page() {
+
+  useEffect(() => {
+    const storedRole = sessionStorage.getItem("storedRole")
+    if (storedRole == 'manager') {
+      redirect("/management")
+    } else if (storedRole == 'staff') {
+      redirect("/staff")
+    }
+  }, [])
+
   const router = useRouter()
 
   const [username, setUsername] = useState("")

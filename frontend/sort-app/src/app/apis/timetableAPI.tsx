@@ -43,6 +43,11 @@ export class TimetableAPIs {
     return response.data
   }
 
+  static getForecast = async () => {
+    const response = await axios.get(BASE_URL + "/forecast")
+    return response.data
+  }
+
   static generateForecast = async (start_date: string) => {
     const response = await axios.post(BASE_URL + "/forecast", {
       start_date
