@@ -102,7 +102,7 @@ def generate_forecast(start_date):
     prediction_date=pd.to_datetime(start_date) 
     #future = pd.date_range(prediction_date + pd.Timedelta(hours=11), prediction_date + pd.Timedelta(hours=22), freq='H')
     futureb = pd.date_range(prediction_date, prediction_date + pd.Timedelta(days=6, hours=22), freq='H')
-    future= futureb[(futureb.hour >= 11) & (futureb.hour <= 22)]
+    future= futureb[(futureb.hour >= 10) & (futureb.hour <= 21)]
     # Make predictions
     future_df = pd.DataFrame({'ds': future})
     # Set the capacity for future predictions
