@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error, r2_score
 
 # Step 1: Load dataset
-data = pd.read_csv("synthetic_poisson2.csv")
+data = pd.read_csv("synthetic_final_poisson.csv")
 
 # Step 2: Data Preprocessing
 # Convert Timestamp column to datetime format
