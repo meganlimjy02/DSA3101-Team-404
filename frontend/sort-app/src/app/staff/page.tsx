@@ -13,7 +13,7 @@ export default function Page() {
     const storedRole = sessionStorage.getItem("storedRole")
     if (storedRole == 'manager') {
       redirect("/management")
-    } else if (storedRole != 'staff') {
+    } else if (storedRole != 'full' && storedRole != 'part') {
       redirect("/login")
     }
   }, [])
