@@ -27,7 +27,7 @@ Docker Desktop is the Community Edition (CE) of Docker. It is a powerful tool fo
 &emsp;&emsp;Link for Macbook: https://docs.docker.com/desktop/install/mac-install/
 
 
-5. Run the yml file by typing in the following command
+5. Run the yml file using the following command
    ```
    docker-compose up
    ```
