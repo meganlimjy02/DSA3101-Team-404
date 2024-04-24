@@ -14,11 +14,37 @@ Structure for backend
 │
 │          ├── EDA
 │          ├── tests
-│          ├── trial_synthetic_data
+           └── trial_synthetic_data
    
 ```
 
 [src/docker-compose.yml](./src/docker-compose.yml)
+
+```
+version: '3'
+services:
+  frontend:
+    build:
+      ...
+    ports:
+      - "3000:3000" 
+      
+  mongodb:
+    image: mongo:latest
+    ...
+
+  flask-app:
+    build:
+      ...
+
+volumes:
+  mongodb_data:
+    driver: local
+```
+
+
+
+
 
 
 
