@@ -11,8 +11,9 @@
 │             ├── database_initialization.py
 │             ├── synthetic_final_poisson.csv
 │             ├── Dockerfile
-│             ├── docker-compose.yml
 │             └── run_all.py
+│             
+│ 
 │
 │          ├── EDA
 │          ├── tests
