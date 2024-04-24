@@ -11,12 +11,6 @@ from bs4 import BeautifulSoup
 from flask import Flask, jsonify, request, abort
 from flask_pymongo import PyMongo
 
-import os
-
-# Step 1: Load your dataset
-new_directory = 'C:/Users/Yi Ling/Desktop/NUS/DSA3101/Project Data'
-os.chdir(new_directory)
-
 
 app = Flask(__name__)
 from flask_cors import CORS
