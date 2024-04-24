@@ -1,0 +1,10 @@
+pandas
+numpy
+prophet
+matplotlib
+pyworkforce
+gurobipy
+requests
+beautifulsoup4
+flask
+flask-pymongo

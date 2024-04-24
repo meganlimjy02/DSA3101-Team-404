@@ -49,8 +49,8 @@ prophet_train_data['cap'] = cap
 model.fit(prophet_train_data)
 
 # Step 4: Model Testing (Using year 2023)
-prediction_date = pd.to_datetime('2023-01-01')  
-end_date=pd.to_datetime('2023-12-31 23:00') 
+prediction_date = pd.to_datetime('2023-01-01 10:00')  
+end_date=pd.to_datetime('2023-12-31 21:00') 
 futureb = pd.date_range(prediction_date, end_date, freq='H')
 future= futureb[(futureb.hour >= 10) & (futureb.hour <= 21)]
 
@@ -78,11 +78,12 @@ predictions_df = pd.DataFrame({"Actual": y_test, "Predicted": forecast["yhat"]})
 r2=r2_score(y_test, forecast["yhat"])
 print("R^2: {:.2f}".format(r2))
 mse=mean_squared_error(y_test, forecast["yhat"])
-# print("MSE: {:.2f}".format(mse))
+print("MSE: {:.2f}".format(mse))
 temp = predictions_df[predictions_df["Actual"] != 0] #only include rows without 0 values
 absolute_percentage_errors = (temp["Actual"] - temp["Predicted"]).abs() / y_test
 mape = absolute_percentage_errors.mean() * 100
 print("MAPE: {:.2f}%".format(mape))
 
-# R^2: 0.76
-# MAPE: 18.36%
+# R^2: 0.56
+# MSE: 1733.82
+# MAPE: 45.37%
