@@ -67,23 +67,6 @@ volumes:
 
 YAML file contains three services: "frontend", "mongodb", and "flask-app". When the yml file is run, it creates a docker container each for the the frontend,mongodb(database),flask-app(backend).
 
-## Docker compose 
-Run the yml file with the docker compose command in the terminal:
-```
-docker compose up
-```
-## Output in backend docker container 
-```
-* Running on http://127.0.0.1:5000
-Press CTRL+C to quit
-```
-The message indicates that API.py file is running in the docker container which is used to connect to the front end service. 
-
-
-
-
-
-
 
 
 
