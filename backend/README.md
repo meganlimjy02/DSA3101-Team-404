@@ -1,4 +1,4 @@
-# Docker compose
+# Docker 
 
 ## Structure for backend
 ```
@@ -19,6 +19,23 @@
            └── trial_synthetic_data
    
 ```
+## Backend Dockerfile 
+[src/Dockerfile](./src/Dockerfile)
+```
+FROM python:3.9
+
+WORKDIR /app
+
+COPY . .
+
+RUN pip install pandas prophet matplotlib numpy pyworkforce pymongo
+RUN pip install gurobipy requests bs4 flask flask_pymongo flask_cors 
+
+CMD ["python3", "run_all.py"]
+
+```
+
+
 
 ## yml file
 [src/docker-compose.yml](./src/docker-compose.yml)
@@ -45,7 +62,7 @@ volumes:
     driver: local
 ```
 
-
+YAML file contains three services: "frontend", "mongodb", and "flask-app".
 
 ## 
 
