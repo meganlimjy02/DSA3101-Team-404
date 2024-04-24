@@ -1,3 +1,6 @@
+// Provides API methods for managing user data via HTTP requests. Includes functionalities
+// for retrieving, creating, deleting, and authenticating users.
+
 import axios from "axios"
 
 
@@ -5,11 +8,13 @@ const BASE_URL = "http://127.0.0.1:5000"
 // let loggedInUser;
 
 export class UserAPIs {
+  // Fetches the list of all users
   static getUserList = async () => {
     const response = await axios.get(BASE_URL + "/userlist")
     return response.data
   }
 
+  // Creates a new user with the specified username, password, and role
   static createUser = async (username: string, password: string, role: "full" | "part" | "manager") => {
     const headers = {
       Role: "manager"
@@ -22,6 +27,7 @@ export class UserAPIs {
     console.log(response)
   }
 
+  // Deletes a user by their staff ID
   static deleteUser = async (staff_id: string) => {
     const headers = {
       Role: "manager"
@@ -30,6 +36,7 @@ export class UserAPIs {
     return response.data
   }
 
+  // Authenticates a user using their username and password
   static loginUser = async (username: string, password: string) => {
     const response = await axios.post(BASE_URL + "/login", {
       username: username,
