@@ -12,4 +12,8 @@ Click on the 'Fork' button at the top right corner of the repository's GitHub pa
    ```
    git clone https://github.com/YOUR_GITHUB_USERNAME/DSA3101-Team-404.git
    ```
-
+3. Navigate to directory with docker-compose.yml
+   ```
+   cd DSA3101-Team-404/backend/src
+   ```
+4. 
