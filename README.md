@@ -17,7 +17,7 @@ Click on the 'Fork' button at the top right corner of the repository's GitHub pa
    ```
 3. Navigate to directory with docker-compose.yml
    ```
-   cd DSA3101-Team-404/backend/src
+   cd DSA3101-Team-404
    ```
 4. Ensure that your device has Docker Desktop installed <br />
 <ins>Installing Docker Desktop</ins> <br />
