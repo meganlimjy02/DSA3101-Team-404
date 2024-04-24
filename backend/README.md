@@ -76,9 +76,6 @@ docker compose up
 ```
 * Running on http://127.0.0.1:5000
 Press CTRL+C to quit
-Importing plotly failed. Interactive plots will not work.
-This is a development server. Do not use it in a production deployment. Use a production WSGI server instead. 
-
 ```
 The message indicates that API.py file is running in the docker container which is used to connect to the front end service. 
 
