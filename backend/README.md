@@ -18,6 +18,7 @@
 │          ├── EDA
 │          ├── tests
            └── trial_synthetic_data
+          
    
 ```
 ## Backend Dockerfile 
@@ -30,7 +31,8 @@ WORKDIR /app
 COPY . .
 
 RUN pip install pandas prophet matplotlib numpy pyworkforce pymongo
-RUN pip install gurobipy requests bs4 flask flask_pymongo flask_cors 
+RUN pip install gurobipy requests bs4 flask flask_pymongo flask_cors
+EXPOSE 5000
 
 CMD ["python3", "run_all.py"]
 
