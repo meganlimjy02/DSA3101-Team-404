@@ -4,6 +4,9 @@
 This repository is intended for the members in DSA3101 Team 404. 
 In collaboration with Mount Faber Leisure Group (MFLG), this project seeks to minimize costs according to customer demand while optimizing manpower allocation for one of their restaurants, Good Old Days.
 
+## Workflow
+![Workflow](https://github.com/meganlimjy02/DSA3101-Team-404/assets/156317152/e75a91e1-bca0-42dd-87c2-998e3406968d)
+
 ## SETUP
 1. Fork the repository:
 Click on the 'Fork' button at the top right corner of the repository's GitHub page to create a copy of the repository in your own GitHub account.
@@ -28,5 +31,14 @@ Docker Desktop is the Community Edition (CE) of Docker. It is a powerful tool fo
    ```
    docker-compose up
    ```
-   This command will build images for the frontend and flask-app services using their respective Docker files, and also creates and runs docker containers for the services frontend, flask(backend) and the mongodb(database)
-6. 
+   This command will build images for the frontend and flask-app services using their respective Docker files, and also creates and runs docker containers for the services frontend, flask(backend) and the mongodb(database).
+   
+   In the future, you will only need to run the containers created in Docker Desktop to access the services.
+7. Navigate to Server<br />
+   Open up URL app is running on (this should appear when you run the above command -- http://localhost:3000 ). Navigate to http://localhost:3000/login to see the login page. <br />
+   <br />
+   OR<br />
+   <br />
+   Open Docker Desktop (you should see the containers when you run the above command). Navigate to ... as shown in the pictures below.
+
+### With that you have finished the setup!!!
