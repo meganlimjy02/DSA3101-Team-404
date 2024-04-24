@@ -36,19 +36,15 @@ Docker Desktop is the Community Edition (CE) of Docker. It is a powerful tool fo
    In the future, you will only need to run the containers created in Docker Desktop to access the services.
 7. Navigate to Server<br />
    Open up URL app is running on (this should appear when you run the above command). Navigate to http://localhost:3000/login to see the login page. <br />
-   <ins> Output in backend docker container </ins>
-   ```
-   * Running on http://127.0.0.1:5000
-   Press CTRL+C to quit
-   ```
-   The message indicates that API.py file is running in the docker container which is used to connect to the front end service. <br />
    
-   OR
+   **OR**
    
-   Open Docker Desktop (you should see the containers when you run the above command). Navigate to "3000:3000" as shown in the pictures below. <br />
+   Open Docker Desktop (you should see the containers when you run the above command). Navigate to **3000:3000** as shown in the pictures below (highlighted in red). <br />
     <ins> Docker Desktop: Windows </ins>
-    ![Windows Containers](https://github.com/meganlimjy02/DSA3101-Team-404/assets/156317152/d879f3ef-2dfd-4e5c-8999-6dca1bdc66dd)
+  ![Windows Containers_e](https://github.com/meganlimjy02/DSA3101-Team-404/assets/156317152/8ceb70ba-f281-4c31-af76-1de0bcfe0a85)
+
 
    <ins> Docker Desktop: Macbook </ins>
+![Macbook Containers_e](https://github.com/meganlimjy02/DSA3101-Team-404/assets/156317152/fde641c5-0054-411d-af76-62530a6d3a6b)
 
    
