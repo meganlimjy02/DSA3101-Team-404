@@ -6,6 +6,8 @@ import { TimetableAPIs } from "../apis/timetableAPI";
 import { redirect } from "next/navigation";
 
 export default function Page() {
+
+  const name = sessionStorage.getItem("storedUser")
   
   // Interface for employee shifts
   interface EmployeeShifts {
@@ -159,7 +161,7 @@ export default function Page() {
 
       <div className={styles.welcome}>
         <div className="d-flex justify-content-between align-items-center" style={{paddingLeft: "30px", paddingRight: "30px"}}>
-          <h1 className="display-6">Hello, Manager!</h1>
+          <h1 className="display-6">Hello, {name}!</h1>
           <div className="font-weight-bold">
             <h1 className="display-6">Today: {dayOfWeek} {currentDate.getDate()}/{currentDate.getMonth() + 1}/{currentDate.getFullYear()}</h1>
           </div>

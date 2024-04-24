@@ -11,11 +11,14 @@ export default function Page() {
 
   useEffect(() => {
     const storedRole = sessionStorage.getItem("storedRole")
-    if (storedRole == 'manager') {
-      redirect("/management")
-    } else if (storedRole != 'full' && storedRole != 'part') {
+    if (storedRole == null) {
       redirect("/login")
     }
+    // if (storedRole == 'manager') {
+    //   redirect("/management")
+    // } else if (storedRole != 'full' && storedRole != 'part') {
+    //   redirect("/login")
+    // }
   }, [])
   
   const name = sessionStorage.getItem("storedUser")

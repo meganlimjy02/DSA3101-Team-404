@@ -28,9 +28,9 @@ export default function Page() {
     .then(res => {
       console.log("attempting to log in staff...")
       console.log(res.data)
-      if (res.data.role != "full" && res.data.role != "part") {
-        throw new Error()
-      }
+      // if (res.data.role != "full" && res.data.role != "part") {
+      //   throw new Error()
+      // }
       sessionStorage.setItem("storedUser",username)
       sessionStorage.setItem("storedRole",res.data.role)
       // console.log(res)
