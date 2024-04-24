@@ -19,7 +19,7 @@ Click on the 'Fork' button at the top right corner of the repository's GitHub pa
    ```
    cd DSA3101-Team-404/backend/src
    ```
-4. Ensure that your device has Docker Desktop installed.<br />
+4. Ensure that your device has Docker Desktop installed <br />
 <ins>Installing Docker Desktop</ins> <br />
 Docker Desktop is the Community Edition (CE) of Docker. It is a powerful tool for building, sharing, and running containerized applications seamlessly across different environments. To download Docker Desktop head to Docker Hub.<br />
 
