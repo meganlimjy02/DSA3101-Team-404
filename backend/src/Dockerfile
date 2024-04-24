@@ -10,6 +10,6 @@ COPY . .
 RUN pip install pandas prophet matplotlib numpy pyworkforce pymongo
 RUN pip install gurobipy requests bs4 flask flask_pymongo flask_cors 
 
-
+EXPOSE 5000
 # Define the command to run your Python script
 CMD ["python3", "run_all.py"]

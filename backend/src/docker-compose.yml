@@ -2,7 +2,7 @@ version: '3'
 services:
   frontend:
     build:
-      context: ../frontend/sort-app
+      context: ./frontend/sort-app
     ports:
       - "3000:3000" 
       
@@ -16,9 +16,11 @@ services:
 
   flask-app:
     build:
-      context: .
+      context: ./backend/src
     depends_on:
       - mongodb
+    ports:
+      - "5000:5000"
 
 volumes:
   mongodb_data:
