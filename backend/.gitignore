@@ -1,0 +1,17 @@
+# Ignore Python bytecode
+__pycache__/
+__pypackages__/
+
+# Unit test / coverage reports
+htmlcov/
+.cache
+
+# Environments
+# .env
+# .venv
+# env/
+# venv/
+# ENV/
+# env.bak/
+# venv.bak/
+
