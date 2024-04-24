@@ -39,6 +39,11 @@ Docker Desktop is the Community Edition (CE) of Docker. It is a powerful tool fo
    <br />
    OR<br />
    <br />
-   Open Docker Desktop (you should see the containers when you run the above command). Navigate to ... as shown in the pictures below.
-
-### With that you have finished the setup!!!
+   Open Docker Desktop (you should see the containers when you run the above command). Navigate to ... as shown in the pictures below. <br />
+   
+   <ins> Output in backend docker container </ins>
+   ```
+   * Running on http://127.0.0.1:5000
+   Press CTRL+C to quit
+   ```
+   The message indicates that API.py file is running in the docker container which is used to connect to the front end service. 
