@@ -21,7 +21,31 @@
           
    
 ```
-## Backend Dockerfile 
+
+## SRC folder 
+
+### synthetic_final_poisson.csv
+[src/synthetic_final_poisson.csv](./src/synthetic_final_poisson.csv)
+
+Data file in csv format used in Models.py
+
+### Models.py
+[src/Models.py](./src/Models.py)
+
+model.py is a Python file designed to automate staff scheduling by forecasting customer occupancy for a 1-week period and optimizing staff allocation. Leveraging time series forecasting techniques with Prophet and optimization algorithms with gurobipy, this python file generates optimized staff timetables weekly while considering factors such as staff availability, roles, and cost constraints.
+
+### database_initialization.py
+[src/database_initialization.py](./src/database_initialization.py)
+
+database_initialization.py is a Python file developed to automate the process of populating a MongoDB database with initial data.The file inserts data for users, including their IDs, passwords, and roles, as well as staff availability for various shifts. By executing this file, users can quickly set up their MongoDB database with essential data for staff management and scheduling. 
+
+### APIs.py
+[src/APIs.py](./src/APIs.py)
+
+APIs.py is a Flask-based Python script that provides a RESTful API for managing staff, generating customer forecasts and staff timetables. It initializes Flask and MongoDB configurations, exposing endpoints for user login, staff management, staff availability, customer occupancy forecasting, and timetable allocation. It's used for integrating staff management and scheduling functionalities with MongoDB databases. This API is designed to seamlessly connect with front-end application,facilitating the development of website.
+
+
+### Backend Dockerfile 
 [src/Dockerfile](./src/Dockerfile)
 ```
 FROM python:3.9
@@ -43,31 +67,7 @@ The "COPY . ." comand in dockerfile copies all these files into the container's 
 
 
 
-## yml file
-[Link to docker-compose.yml](../docker-compose.yml)
-```
-version: '3'
-services:
-  frontend:
-    build:
-      ...
-    ports:
-      - "3000:3000" 
-      
-  mongodb:
-    image: mongo:latest
-    ...
 
-  flask-app:
-    build:
-      ...
-
-volumes:
-  mongodb_data:
-    driver: local
-```
-
-YAML file contains three services: "frontend", "mongodb", and "flask-app". When the yml file is run, it creates a docker container each for the the frontend,mongodb(database),flask-app(backend).
 
 
 
