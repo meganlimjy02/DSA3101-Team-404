@@ -44,8 +44,7 @@ The "COPY . ." comand in dockerfile copies all these files into the container's 
 
 
 ## yml file
-[src/docker-compose.yml](./src/docker-compose.yml)
-
+[Link to docker-compose.yml](docker-compose.yml)
 ```
 version: '3'
 services:
