@@ -42,6 +42,52 @@ database_initialization.py is a Python file developed to automate the process of
 
 ### APIs.py
 [src/APIs.py](./src/APIs.py)
+```
+from flask import Flask, jsonify, request, abort
+from flask_pymongo import PyMongo
+from Models import generate_forecast, generate_timetable
+
+app = Flask(__name__)
+from flask_cors import CORS
+CORS(app)
+
+# MongoDB Configuration
+app.config["MONGO_URI"] = "mongodb://localhost:27017/mydatabase"
+mongo = PyMongo(app)
+
+#API: Login
+@app.route('/login', methods=['POST'])
+def login():
+    ...
+#API: Staff Management
+@app.route('/staff', methods=['POST'])
+def add_staff():
+    ...
+
+@app.route('/staff/<staff_id>', methods=['DELETE'])
+def remove_staff(staff_id):
+    ...
+
+#API: Staff Availibility
+@app.route('/availability', methods=['GET', 'PUT'])
+def manage_availability():
+    ...
+@app.route('/availability/<staff_id>', methods=['GET'])
+def get_user_availability(staff_id):
+    ...
+
+#API: Customer Occupancy Forecast
+@app.route('/forecast', methods=['POST'])
+def forecast():
+    ...
+
+#API: Timetable Allocation
+@app.route('/timetable', methods=['POST'])
+def timetable():
+    ...
+if __name__ == '__main__':
+    app.run(port=5000)
+```
 
 APIs.py is a Flask-based Python script that provides a RESTful API for managing staff, generating customer forecasts and staff timetables. It initializes Flask and MongoDB configurations, exposing endpoints for user login, staff management, staff availability, customer occupancy forecasting, and timetable allocation. It's used for integrating staff management and scheduling functionalities with MongoDB databases. This API is designed to seamlessly connect with front-end application,facilitating the development of website.
 
