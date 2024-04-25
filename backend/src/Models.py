@@ -192,7 +192,7 @@ def get_usernames():
 salary_mapping = {
     'full': 60,
     'part': 75,
-    'manager': 60
+    'manager': 75
 }
 
 #Model: Helper, get salaries based on roles from db
