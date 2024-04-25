@@ -17,7 +17,9 @@
 │
 │          ├── EDA
 │          ├── tests
-│          └── trial_synthetic_data
+│          ├── trial_synthetic_data
+│          ├── .gitignore
+│          └── README.md (current file)
           
    
 ```
