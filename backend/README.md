@@ -35,18 +35,17 @@ Data file in csv format used in Models.py
 ### Models.py
 [src/Models.py](./src/Models.py)
 
-Models.py is a Python file designed to automate staff scheduling by forecasting customer occupancy for a 1-week period and optimizing staff allocation.By leveraging time series forecasting techniques with Prophet and optimization algorithms with gurobipy, this python file generates optimized staff timetables weekly while considering factors such as staff availability, roles, and cost constraints.
+Models.py is a Python file designed to automate staff scheduling by forecasting customer occupancy for a 1-week period and optimizing staff allocation. By leveraging on the Prophet Model and Python packages such as pyworkforce and gurobipy, this file generates optimized staff timetables weekly while considering factors such as staff availability, roles, and cost constraints.
 
 ### database_initialization.py
 [src/database_initialization.py](./src/database_initialization.py)
 
-database_initialization.py is a Python file developed to automate the process of populating a MongoDB database with initial data.The file inserts data for users, including their IDs, passwords, and roles, as well as staff availability for various shifts. By executing this file, users can quickly set up their MongoDB database with essential data for staff management and scheduling. 
+database_initialization.py is a Python file developed to automate the process of populating a MongoDB database with initial data for users and availability.
 
 ### APIs.py
 [src/APIs.py](./src/APIs.py)
 
-APIs.py is a Flask-based Python script that provides a RESTful API for managing staff, generating customer forecasts and staff timetables. It initializes Flask and MongoDB configurations, exposing endpoints for user login, staff management, staff availability, customer occupancy forecasting, and timetable allocation. It's used for integrating staff management and scheduling functionalities with MongoDB databases. This API is designed to seamlessly connect with front-end application,facilitating the development of website.
-
+APIs.py is a Python file that provides a RESTful API for managing staff, generating customer forecasts and staff timetables. It initializes Flask and MongoDB configurations, exposing endpoints to connect with frontend application.
 
 ### Backend Dockerfile 
 [src/Dockerfile](./src/Dockerfile)
@@ -74,7 +73,7 @@ The Python script, used in conjunction with the Dockerfile, contains code design
 ## EDA folder
 [EDA](./EDA)
 
-This folder contains preliminary data analysis conducted using the raw data stored in the synthetic_final_poisson.csv file.
+This folder contains exploratory data analysis conducted using the raw data stored in the synthetic_final_poisson.csv file.
 
 ## tests folder
 [tests](./tests)
@@ -84,12 +83,9 @@ This folder contains the evaluation of the Prophet model utilized in the Models.
 ## trial_synthetic_data folder 
 [trial_synthetic_data](./trial_synthetic_data)
 
-This folder contains all the data files used from the beginning of our modeling phase to assess the performance of the Prophet model in forecasting customers, within the Models.py Python file. This enables us to select the data file with the best performance for further use.
+This folder contains other versions of data files used during our modeling phase to assess the performance of the Prophet model in forecasting customers. 
 
-## .gitignore 
-[.gitignore](./.gitignore)
 
-The .gitignore file ignores specific files and directories from being tracked by Git.
 
 
 
