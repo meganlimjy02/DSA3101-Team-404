@@ -17,7 +17,7 @@
 │
 │          ├── EDA
 │          ├── tests
-           └── trial_synthetic_data
+│          └── trial_synthetic_data
           
    
 ```
