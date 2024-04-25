@@ -6,10 +6,10 @@
 
 ├── backend 
 │         ├──src
-│             ├── APIs.py
+│             ├── synthetic_final_poisson.csv
 │             ├── Models.py
 │             ├── database_initialization.py
-│             ├── synthetic_final_poisson.csv
+│             ├── APIs.py
 │             ├── Dockerfile
 │             └── run_all.py
 │             
@@ -33,7 +33,7 @@ Data file in csv format used in Models.py
 ### Models.py
 [src/Models.py](./src/Models.py)
 
-model.py is a Python file designed to automate staff scheduling by forecasting customer occupancy for a 1-week period and optimizing staff allocation. Leveraging time series forecasting techniques with Prophet and optimization algorithms with gurobipy, this python file generates optimized staff timetables weekly while considering factors such as staff availability, roles, and cost constraints.
+Models.py is a Python file designed to automate staff scheduling by forecasting customer occupancy for a 1-week period and optimizing staff allocation. Leveraging time series forecasting techniques with Prophet and optimization algorithms with gurobipy, this python file generates optimized staff timetables weekly while considering factors such as staff availability, roles, and cost constraints.
 
 ### database_initialization.py
 [src/database_initialization.py](./src/database_initialization.py)
@@ -69,7 +69,21 @@ This Dockerfile sets up a Python 3.9 environment. It starts by setting the worki
 
 The Python script, used in conjunction with the Dockerfile, contains code designed to execute all Python files under the ‘backend/src’ directory simultaneously.
 
-## EDA
+## EDA folder
+[EDA](./EDA)
+
+This folder contains preliminary data analysis conducted using the raw data stored in the synthetic_final_poisson.csv file.
+
+## tests folder
+[tests](./tests)
+
+This folder contains the evaluation of the Prophet model utilized in the Models.py Python file for forecasting the number of customers.
+
+## trial_synthetic_data folder 
+[trial_synthetic_data](./trial_synthetic_data)
+
+This folder contains all the data files used from the beginning of our modeling phase to assess the performance of the Prophet model in forecasting customers, within the Models.py Python file. This enables us to select the data file with the best performance for further use.
+
 
 
 
