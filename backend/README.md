@@ -86,7 +86,10 @@ This folder contains the evaluation of the Prophet model utilized in the Models.
 
 This folder contains all the data files used from the beginning of our modeling phase to assess the performance of the Prophet model in forecasting customers, within the Models.py Python file. This enables us to select the data file with the best performance for further use.
 
+## .gitignore 
+[.gitignore](./.gitignore)
 
+The .gitignore file ignores specific files and directories from being tracked by Git.
 
 
 
