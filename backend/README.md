@@ -33,7 +33,7 @@ Data file in csv format used in Models.py
 ### Models.py
 [src/Models.py](./src/Models.py)
 
-Models.py is a Python file designed to automate staff scheduling by forecasting customer occupancy for a 1-week period and optimizing staff allocation. Leveraging time series forecasting techniques with Prophet and optimization algorithms with gurobipy, this python file generates optimized staff timetables weekly while considering factors such as staff availability, roles, and cost constraints.
+Models.py is a Python file designed to automate staff scheduling by forecasting customer occupancy for a 1-week period and optimizing staff allocation.By leveraging time series forecasting techniques with Prophet and optimization algorithms with gurobipy, this python file generates optimized staff timetables weekly while considering factors such as staff availability, roles, and cost constraints.
 
 ### database_initialization.py
 [src/database_initialization.py](./src/database_initialization.py)
