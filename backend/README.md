@@ -62,7 +62,7 @@ EXPOSE 5000
 CMD ["python3", "run_all.py"]
 
 ```
-This Dockerfile sets up a Python 3.9 environment. It starts by setting the working directory to /app within the docker container and copies the Models.py,database_initialization.py, synthetic_final_poisson.csv and APIs.py into it. Then, it installs necessary Python packages using pip to run these files. Port 5000 is exposed to allow external access to the application. Finally, the container is instructed to run the run_all.py python file when started.
+This Dockerfile sets up a Python 3.9 environment. It starts by setting the working directory to /app within the docker container and copies the Models.py, database_initialization.py, synthetic_final_poisson.csv and APIs.py files into it. Then, it installs necessary Python packages using pip to run these files. Port 5000 is exposed to allow external access to the application. Finally, the container is instructed to run the run_all.py python file when started.
 
 ### run_all.py
 [src/run_all.py](./src/run_all.py)
