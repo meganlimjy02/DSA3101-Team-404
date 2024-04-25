@@ -25,8 +25,6 @@
 ```
 
 ## SRC folder 
-[src](./src)
-
 ### synthetic_final_poisson.csv
 [src/synthetic_final_poisson.csv](./src/synthetic_final_poisson.csv)
 
