@@ -23,6 +23,7 @@
 ```
 
 ## SRC folder 
+[src](./src)
 
 ### synthetic_final_poisson.csv
 [src/synthetic_final_poisson.csv](./src/synthetic_final_poisson.csv)
@@ -68,6 +69,7 @@ This Dockerfile sets up a Python 3.9 environment. It starts by setting the worki
 
 The Python script, used in conjunction with the Dockerfile, contains code designed to execute all Python files under the ‘backend/src’ directory simultaneously.
 
+## EDA
 
 
 
