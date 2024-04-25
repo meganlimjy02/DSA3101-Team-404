@@ -61,8 +61,15 @@ EXPOSE 5000
 CMD ["python3", "run_all.py"]
 
 ```
-The docker file specifies the base image as Python version 3.9. Next, it sets the working directory inside the container to "/app", where the backend files in the src folder, APIs.py, Models.py, database_initialization.py, synthetic_final_poisson.csv will reside. 
-The "COPY . ." comand in dockerfile copies all these files into the container's "/app" directory,ensuring files are within container."RUN pip install" downloads all python dependencies in the files APIs.py, Models.py, database_initialization.py, synthetic_final_poisson.csv.  The CMD command runs all those python files in the docker container.run_all.py file contains the python code to run APIs.py ,database_initialization.py and Models.py files simultaneously.
+This Dockerfile sets up a Python 3.9 environment. It starts by setting the working directory to /app within the docker container and copies the Models.py,database_initialization.py, synthetic_final_poisson.csv and APIs.py into it. Then, it installs necessary Python packages using pip to run these files. Port 5000 is exposed to allow external access to the application. Finally, the container is instructed to run the run_all.py python file when started.
+
+### run_all.py
+[src/run_all.py](./src/run_all.py)
+
+The Python script, used in conjunction with the Dockerfile, contains code designed to execute all Python files under the ‘backend/src’ directory simultaneously.
+
+
+
 
 
 
